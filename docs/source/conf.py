@@ -6,11 +6,11 @@
 # -- Project information
 
 project = 'IP2Location.io Scala SDK'
-copyright = '2025, IP2Location'
+copyright = '2026, IP2Location'
 author = 'IP2Location'
 
-release = '1.1.0'
-version = '1.1.0'
+release = '1.2.0'
+version = '1.2.0'
 
 # -- General configuration
 
@@ -75,4 +75,4 @@ html_favicon = 'images/favicon-32x32.png'
 
 html_title = "IP2Location.io Scala SDK"
 
-# html_baseurl = "https://ip2location-io-d.readthedocs.io/en/latest/"
+# html_baseurl = "https://ip2location-io-scala.readthedocs.io/en/latest/"

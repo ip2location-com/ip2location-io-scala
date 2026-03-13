@@ -6,36 +6,36 @@ import java.net.{URI, URLEncoder}
 import com.google.gson.{JsonObject, JsonParser}
 
 /**
- * This class performs the lookup of hosted domains data from an IP address by querying the IP2Location.io API.
+ * This class performs the lookup of geolocation data from an IP address by querying the IP2Location.io API.
  * <p>
- * Copyright (c) 2002-2025 IP2Location.com
+ * Copyright (c) 2002-2026 IP2Location.com
  * <p>
  *
  * @author IP2Location.com
- * @version 1.1.0 */
-class HostedDomain(Config: Configuration) {
-  private val BASE_URL = "https://domains.ip2whois.com/domains"
+ * @version 1.2.0 */
+class IPGeolocation(Config: Configuration) {
+  private val BASE_URL = "https://api.ip2location.io/"
   private val SOURCE = "sdk-scala-iplio"
   private val FORMAT = "json"
-  private val ERROR = "HostedDomain lookup error."
+  private val ERROR = "IPGeolocation lookup error."
 
   /**
-   * This function to query IP2Location.io hosted domains data.
+   * This function to query IP2Location.io geolocation data.
    *
    * @param ip IP Address you wish to query
-   * @return IP2Location.io hosted domains data
+   * @return IP2Location.io geolocation data
    * @throws Exception If parameters are incorrect or API call failed. */
-  @throws[Exception] def lookUp(ip: String): JsonObject = lookUp(ip, 1)
+  @throws[Exception] def lookUp(ip: String): JsonObject = lookUp(ip, "")
 
   /**
-   * This function to query IP2Location.io hosted domains data.
+   * This function to query IP2Location.io geolocation data.
    *
    * @param ip       IP Address you wish to query
-   * @param page The page of the result
-   * @return IP2Location.io hosted domains data
+   * @param language The translation language
+   * @return IP2Location.io geolocation data
    * @throws Exception If parameters are incorrect or API call failed. */
-  @throws[Exception] def lookUp(ip: String, page: Int): JsonObject = {
-    val url = BASE_URL + "?format=" + FORMAT + "&source=" + SOURCE + "&source_version=" + Config.getVersion + "&key=" + Config.getApiKey + "&ip=" + URLEncoder.encode(ip, "UTF-8") + "&page=" + page
+  @throws[Exception] def lookUp(ip: String, language: String): JsonObject = {
+    val url = BASE_URL + "?format=" + FORMAT + "&source=" + SOURCE + "&source_version=" + Config.getVersion + "&key=" + Config.getApiKey + "&ip=" + URLEncoder.encode(ip, "UTF-8") + "&lang=" + URLEncoder.encode(language, "UTF-8")
     val request = HttpRequest.newBuilder.uri(new URI(url)).GET.build
     val client = HttpClient.newHttpClient
     val response = client.sendAsync(request, HttpResponse.BodyHandlers.ofString).join()
